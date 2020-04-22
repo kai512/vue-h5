@@ -1,0 +1,34 @@
+@charset "utf-8";
+@font-face {
+    font-family: 'icon';
+    src: url('icon.ttf') format('truetype');
+}
+.icon-pre:before{
+	font-family: "icon";
+	font-style:normal;
+}
+/*图标*/
+.icon-arrow-right:before{
+	content: "\E902";
+}
+.icon-point-down:before{
+	content: "\E91A"
+}
+.icon-point-up:before{
+	content: "\E91F"
+}
+.icon-event:before{
+	content: "\E920"
+}
+.icon-location:before{
+	content: "\E909"
+}
+.icon-light:before{
+	content: "\E934"
+}
+.icon-notice:before{
+	content: "\E93b"
+}
+.icon-calendar:before{
+	content: "\E93c"
+}

@@ -1,0 +1,43 @@
+{
+  "name": "vue-project",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "babel-plugin-import": "^1.13.0",
+    "core-js": "^3.6.4",
+    "js-cookie": "^2.2.0",
+    "object-assign": "^4.1.0",
+    "underscore": "^1.9.1",
+    "vant": "^2.4.2-beta.1",
+    "vue": "^2.6.11",
+    "vue-i18n": "^7.8.0",
+    "vue-router": "^3.1.6",
+    "vue-touch": "^2.0.0-beta.4",
+    "vuex": "^3.0.1",
+    "vuex-persistedstate": "^2.5.4",
+    "vux-xscroll": "^3.1.10"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.2.0",
+    "@vue/cli-plugin-eslint": "~4.2.0",
+    "@vue/cli-service": "~4.2.0",
+    "@vue/eslint-config-standard": "^3.0.0-beta.10",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.1.2",
+    "less": "^3.11.1",
+    "less-loader": "^5.0.0",
+    "mockjs": "^1.0.1-beta3",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}

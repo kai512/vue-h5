@@ -1,0 +1,40 @@
+@charset "utf-8";
+@font-face {
+    font-family: 'b-icon';
+    src: url('b-icon.ttf') format('truetype');
+}
+.b-icon-pre:before{
+	font-family: "b-icon";
+	font-style:normal;
+}
+/*图标*/
+.b-icon-time:before{
+	content: "\E900";
+}
+.b-icon-location:before{
+	content: "\E901";
+}
+.b-icon-scan:before{
+	content: "\E909";
+}
+.b-icon-refresh:before{
+	content: "\E90a";
+}
+.b-icon-ship:before{
+	content: "\E90b";
+}
+.b-icon-ssp-camera:before{
+	content: "\E917";
+}
+.b-icon-ssp-img:before{
+	content: "\E918";
+}
+.b-icon-ssp-comment:before{
+	content: "\E919";
+}
+.b-icon-call:before{
+	content: "\E91E";
+}
+.b-icon-theme:before{
+	content: "\E923";
+}
