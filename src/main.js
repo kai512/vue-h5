@@ -3,11 +3,20 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import VueTouch from 'vue-touch';
+
+import importDirective from '@/directive'
+
+if (process.env.NODE_ENV !== 'production') require('@/mock')
 Lw.config.productionTip = false
 Lw.use(VueTouch)
 
-new Lw({
-	
+
+/**
+ * 注册指令
+ */
+importDirective(Lw)
+
+new Lw({	
 	el: '#app',
 	render: h => h(App),
 	router,

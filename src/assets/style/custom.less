@@ -258,7 +258,7 @@ body{
         background-color: white;
     }
     background: url(../images/empty-bg.png)  center 5rem no-repeat;
-    background-size: 12.5rem 6.75rem;
+    background-size: 187px 144px;
     height: 20rem;
     box-sizing: border-box;
     padding-top: 14rem;
@@ -442,9 +442,6 @@ body{
 }
 //全局状态 end
 
-
-
-
 //跑马灯
 .marquee-box{
     position: fixed;
@@ -495,6 +492,108 @@ body{
 }
 
 
+// vant基础重置
+[class*=van-hairline]::after{
+	border-color: #e0e0e0;
+}
 
+// 搜索
+.van-search__content{
+	background: #ededee;
+}
+.van-search .van-cell{
+	padding: 6px;
+}
+.van-icon-search::before{
+	content: "\E948";
+	font-family: icon;
+	color: #999999;
+}
+.van-search__content--round{
+	border-radius: 20px;
+}
+// 搜索end
+
+
+//普通列表
+.cell-list{
+	.cell{
+		position:relative;
+		background: white;
+		padding: 12px;
+		display: flex;
+		font-size: 15px;
+		align-items: center;
+		.p{
+			color: #888;
+			font-size: 13px;
+		}
+		.info{
+			flex: 1;
+		}
+		label{
+			flex: 1;
+			margin-right: 15px;
+			color: #666;
+		}
+		.text{
+			color: #141414;
+		}
+		.is-link{
+			flex: 1;
+			margin: -12px;
+			display: flex;
+			padding: 12px;
+			position: relative;
+			align-items: center;
+		}
+		.is-link::after{
+			content: "\E902";
+			font-family: icon;
+			color: #bbb;
+			margin-left: 6px;
+		}
+		&:after{
+			.bBorder();
+			left: 12px;
+			right: 12px;
+		}
+	}
+	.b-border:after{
+		left: 12px;
+		right: 12px;
+	}
+	
+}
+//普通列表end
+a.link{
+	color: #038bff;
+}
+.opera-box{
+	display: flex;
+	height: 48px;
+	background: white;
+	box-shadow: 0 0 5px rgba(0,0,0,.02);
+	.btn{
+		flex: 1;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		&.primary{
+			color: white;
+			background: @main-gra-color;
+		}
+	}
+	.icon-call:before{
+		content: "\E93a";
+		margin: 0 8px;
+		font-size: 20px;
+	}
+	.icon-msg:before{
+		content: "\E941";
+		font-size: 20px;
+		margin: 0 8px;
+	}
+}
 
 
