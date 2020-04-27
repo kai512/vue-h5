@@ -1,6 +1,6 @@
 <template>
     <div class="empty-box">
-        <span>暂无数据</span>
+        <span>{{msg}}</span>
     </div>
 </template>
 
@@ -8,6 +8,12 @@
 export default {
     data() {
     	return {}
+    },
+    props : {
+        msg : {
+            type : String,
+            default : "暂无数据"
+        }
     },
     watch: {
     },
