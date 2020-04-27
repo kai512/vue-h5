@@ -6,7 +6,8 @@ import VueTouch from 'vue-touch';
 
 import importDirective from '@/directive'
 
-if (process.env.NODE_ENV !== 'production') require('@/mock')
+// mock的时候可以开起来
+//if (process.env.NODE_ENV !== 'production') require('@/mock')
 Lw.config.productionTip = false
 Lw.use(VueTouch)
 
