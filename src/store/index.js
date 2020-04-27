@@ -3,11 +3,12 @@ import Vuex from 'vuex'
 
 import user from './module/user'
 import app from './module/app'
+import search from './module/search'
 import createPersistedState from "vuex-persistedstate"
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-	plugins: [createPersistedState()],
+	// plugins: [createPersistedState()],
 	state: {
 		//
 	},
@@ -19,6 +20,7 @@ export default new Vuex.Store({
 	},
 	modules: {
 		user,
-		app
+		app,
+		search
 	}
 })
