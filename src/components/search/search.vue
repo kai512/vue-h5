@@ -37,7 +37,6 @@
 </template>
 <script>
 
-import appAjax from "@/libs/app-ajax"
 export default {
     data(){
         return {
@@ -47,11 +46,6 @@ export default {
         }
     },
     props : {
-        serviceUrl : String,
-        type : {
-            type : String,
-            default : "GET"
-        }
 
     },
     computed : {
