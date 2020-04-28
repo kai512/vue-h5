@@ -16,7 +16,7 @@ if (window.history && window.history.pushState) {
     }
 }
 const router = new Router({
-	routes : [modules],
+	routes : [...modules],
 	mode: 'history'
 })
 
