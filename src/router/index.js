@@ -1,5 +1,5 @@
 import Router from 'vue-router'
-import routes from './routers'
+import modules from './module'
 import store from '@/store'
 
 import { setToken, getToken, setTitle, setAppInfo, initNativeBack } from '@/libs/util'
@@ -16,7 +16,7 @@ if (window.history && window.history.pushState) {
     }
 }
 const router = new Router({
-	routes,
+	routes : [modules],
 	mode: 'history'
 })
 

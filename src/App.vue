@@ -14,8 +14,7 @@
 </template>
 
 <script>
-	import routers from '@/router/routers'
-	import { mapMutations, mapActions, mapGetters } from 'vuex'
+	import { mapMutations } from 'vuex'
 	export default {
 		name: 'app',
 		data() {

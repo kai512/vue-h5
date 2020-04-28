@@ -1,5 +1,5 @@
 import config from '@/config'
-import routers from '@/router/routers'
+import routers from '@/router/module'
 const {
 	homeName
 } = config
