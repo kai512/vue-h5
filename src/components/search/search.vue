@@ -36,23 +36,25 @@
     </div>
 </template>
 <script>
-
+import { localSaveObject, localReadObject } from "@/libs/util"
 export default {
     data(){
         return {
             isShow : false,
             keyword : "",
-            searchResult : null
+            searchResult : null,
+            searchHistory : localReadObject("searchHistory") || []
         }
     },
     props : {
 
     },
     computed : {
-        searchHistory(){
+  
+    },
+    mounted(){
 
-            return this.$store.state.search.historyWord
-        }
+        
     },
     methods : {
         show(){
@@ -73,6 +75,8 @@ export default {
 
         deleteWord(value, index){
             this.searchHistory.splice(index, 1)
+
+            this.addLocalStorage()
         },
 
         /**
@@ -87,8 +91,9 @@ export default {
          * 清除历史记录
          */
         clearHistory(){
-
-            this.$store.commit("setHistoryWord", []);
+            
+            this.searchHistory = [];
+            this.addLocalStorage()
 
         },
 
@@ -97,7 +102,16 @@ export default {
          */
         addHistoryWord(){
             let keyword = this.keyword.trim();
-            keyword && this.$store.commit("setHistoryWord", keyword)
+
+            if(this.searchHistory.indexOf(keyword) > -1) return;
+
+			this.searchHistory.unshift(keyword)
+            this.addLocalStorage()
+        },
+
+        addLocalStorage(){
+
+            localSaveObject("searchHistory", this.searchHistory)
         }
 
     }

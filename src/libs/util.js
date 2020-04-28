@@ -370,11 +370,30 @@ export const routeHasExist = (tagNavList, routeItem) => {
 }
 
 export const localSave = (key, value) => {
+
 	localStorage.setItem(key, value)
 }
 
 export const localRead = (key) => {
 	return localStorage.getItem(key) || ''
+}
+
+/**
+ * 对象保存到本地
+ */
+export const localSaveObject = (key, value) => {
+
+	localStorage.setItem(key, JSON.stringify(value))
+}
+
+/**
+ * 读取本地缓存对象
+ */
+export const localReadObject = (key) => {
+	let localData = localStorage.getItem(key);
+
+	if(localData) return JSON.parse(localData);
+	
 }
 
 // scrollTop animation
