@@ -22,7 +22,7 @@
 	</scroller>
 </template>
 <script>
-	import appAjax from '_libs/api-utils'
+	import appAjax from '@/libs/app-ajax'
 	import { Divider } from 'vant';
 	import Scroller from './Scroller.vue'
 	import underscore from "underscore-extend";

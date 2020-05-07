@@ -56,7 +56,7 @@ export default [
 			hideInMenu: true
 		},
 		component: () =>
-			import('@/components/404.vue')
+			import('@/components/error/404.vue')
 	}
 
 ]

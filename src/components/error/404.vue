@@ -1,7 +1,7 @@
 <template>
-   <div class="mian-content">
-		<div class="page-500">
-			<span>啊哦…内部服务器出错了！</span>
+    <div class="mian-content">
+		<div class="page-404">
+			<span>抱歉，您访问的页面不存在！</span>
 			<!--<a>返回首页</a>-->
 		</div>
 	</div>
@@ -20,12 +20,12 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@import url("../assets/style/var.less");
+@import url("../../assets/style/var.less");
 .page-401,
 .page-500,
 .page-505,
 .page-404{
-    background: url(../assets/images/404-bg.png) center 1rem no-repeat;
+    background: url(../../assets/images/404-bg.png) center 1rem no-repeat;
     padding-top: 3.125rem;
     height: 14.375rem;
     padding-top: 9.375rem;
@@ -37,7 +37,7 @@ export default {
     width: 100%;
 }
 .page-500{
-    background: url(../assets/images/500-bg.png) center 1rem no-repeat;
+    background: url(../../assets/images/500-bg.png) center 1rem no-repeat;
     background-size: 15.28125rem 7.84375rem;
 }
 .page-401{
@@ -66,4 +66,3 @@ export default {
     border-radius: 0.1875rem;
 }
 </style>
-
