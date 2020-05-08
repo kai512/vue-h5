@@ -3,7 +3,7 @@
  * @author jliangliang
  * @since 2017/9/26
  */
-import appAjax from './app-ajax'
+import { getUploadParams } from "@/api/uploader"
 export default {
 
 	/**
@@ -70,34 +70,29 @@ export default {
 	 * @param {Object} callback
 	 */
 	getUploadParams: function(file, callback, errorBack) {
-		// 请求oss参数
-		appAjax.postJson({
-			service: 'GET_UPLOAD_TOKEN',
-			type: 'GET',
-			data: {
-				size: 1
-			},
-			success: function(data) {
-				var res = data
-				var fileExt = '.png'
-				var params = {
-					OSSAccessKeyId: res.accessid,
-					policy: res.policy,
-					signature: res.signature,
-					key: res.filename,
-					success_action_status: '200'
-				}
-				if(file.name.lastIndexOf('.') > -1) {
-					fileExt = file.name.substring(file.name.lastIndexOf('.')).toLowerCase()
-				}
+        // 请求oss参数
+        
+        getUploadParams().then(data => {
+            var res = data
+            var fileExt = '.png'
+            var params = {
+                OSSAccessKeyId: res.accessid,
+                policy: res.policy,
+                signature: res.signature,
+                key: res.filename,
+                success_action_status: '200'
+            }
+            if(file.name.lastIndexOf('.') > -1) {
+                fileExt = file.name.substring(file.name.lastIndexOf('.')).toLowerCase()
+            }
 
-				params.key = params.key + fileExt
-				params.name = file.name
-				callback && callback(params)
-			},
-			error: function() {
-				errorBack && errorBack()
-			}
-		})
+            params.key = params.key + fileExt
+            params.name = file.name
+            callback && callback(params)
+
+        }).catch(() => {
+            errorBack && errorBack()
+        })
+		
 	}
 }
