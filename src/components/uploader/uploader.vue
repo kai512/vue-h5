@@ -28,12 +28,15 @@
 	import draggable from "_libs/vue-draggable";
 	import underscore from "underscore-extend"
 	import axios from 'axios'
-	import lrz from 'lrz'
-	const authClient = getAuthClient();
+    import lrz from 'lrz'
+    import config from "@/config"
+    const authClient = getAuthClient();
+    
+
 	// 恶心的代码 为了支持南平oss上传 by jliangliang 2019-10-22
 	if(JSON.parse(authClient["base-params"]).appId == "f4d83b0187804f8792fa8b5bd7c64a25"){
 		
-		INNO_CHINA_CONSTANTS.UPLOAD_URL = "https://zsnanping.oss-cn-shenzhen.aliyuncs.com";
+		config.UPLOAD_URL = "https://zsnanping.oss-cn-shenzhen.aliyuncs.com";
 	}
 	export default {
 		props: {
@@ -64,7 +67,7 @@
             	type: Object,
                 default () {
                     return {
-                    	header : utils.getAuthClient()
+                    	headers : utils.getAuthClient()
                     	
                     };
                 }
@@ -84,7 +87,11 @@
 			},
 			uploadUrl: {
 				type: String,
-				default: INNO_CHINA_CONSTANTS.UPLOAD_URL || "/rest/tongplatform/common/third-party-extranet/v1/attachment/upload-pics"
+				default: config.UPLOAD_URL || `${config.serviceBaseUrl.base}/tongplatform/common/third-party-extranet/v1/attachment/upload-pics`
+			},
+			base64UploadUrl: {
+				type: String,
+				default: `${config.serviceBaseUrl.base}/zuul/tongplatform/common/third-party-extranet/v1/attachment/upload-pics-base64`
 			},
 			size: {
 				type: String,
@@ -92,7 +99,7 @@
 			},
 			name: {
 				type: String,
-				default: INNO_CHINA_CONSTANTS.UPLOAD_URL ? 'file' : "files"
+				default: config.UPLOAD_URL ? 'file' : "files"
 			},
 			params: {
 				type: Object,
@@ -196,8 +203,11 @@
                 	
                 	if(this.isCompress){
                 		lrz(file, {quality : this.quality}).then((res) => {
-                			
-                			let file = this.dataURLtoFile(res.base64, res.origin.name);
+//              			let file = this.dataURLtoFile(res.base64, res.origin.name);
+                			let file = {
+                				id : res.base64.substring(res.base64.indexOf(",")+1),
+                				fileName : res.origin.name
+                			}
                 			this.upload(file);	
                 		}).catch(function(err){
                 			this.$vux.toast.text(err); 
@@ -229,6 +239,11 @@
                 this.count++;
 				
 				this.loadingStyle == "wholeLoading" && this.$vux.loading.show({text : "正在上传"});
+				if(this.isCompress){
+					// 如果需要压缩需要使用base64上传
+					this.postBase64(file);
+					return;
+				}
                 const before = this.beforeUpload(file);
                 if (before && before.then) {
                     before.then(processedFile => {
@@ -253,7 +268,7 @@
 			 * 上传交互
 			 */
 			post(file){
-                
+				
                 let formData = new window.FormData()
 				
 				if(this.params) {
@@ -262,7 +277,6 @@
 					}
 				}
                 formData.append(this.name, file)
-                
                 // 上传
             	axios.post(this.uploadUrl, formData, this.otherParams)
 					.then((response) => {
@@ -273,10 +287,10 @@
 						var ret = (response.data && response.data.content && response.data.content.length > 0) ? response.data.content[0] : {};
 						
 						// oss上传特殊处理
-						if(INNO_CHINA_CONSTANTS.UPLOAD_URL){
+						if(config.UPLOAD_URL){
 							
 							ret = {
-								filePath : oss.buildResizeUrl(INNO_CHINA_CONSTANTS.UPLOAD_URL + "/" + this.temParams[file.name], null, null, 70),
+								filePath : oss.buildResizeUrl(config.UPLOAD_URL + "/" + this.temParams[file.name], null, null, 70),
 								fileName : file.name,
 								fileId : this.temParams[file.name]
 							}
@@ -290,6 +304,39 @@
 							this.imageList = [ret];
 						}
 						
+						
+						this.$emit("handle-success", ret);
+						this.count = this.imageList.length;
+					}).catch((error) => {
+						if(this.$vux && this.$vux.loading && this.loadingStyle == "wholeLoading") {
+							this.$vux.loading.hide()
+						}
+					    this.count--;
+					    this.$emit("handle-error", error);
+					});
+			},
+			
+			/*
+			 * base64上传
+			 */
+			postBase64(file){
+				axios.post(this.base64UploadUrl, file, this.otherParams)
+					.then((response) => {
+						if(this.$vux && this.$vux.loading && this.loadingStyle == "wholeLoading") {
+							this.$vux.loading.hide()
+						}
+						this.$refs.input.value = '';
+						var ret = (response.data && response.data.content && response.data.content.length > 0) ? response.data.content[0] : {};
+						
+						
+						
+						// 多图上传
+						if(this.multiple){
+							
+							this.imageList.push(ret);
+						}else{
+							this.imageList = [ret];
+						}
 						
 						this.$emit("handle-success", ret);
 						this.count = this.imageList.length;
@@ -315,7 +362,7 @@
         		
         		this.$emit("before-upload", file, this.otherData);
         		
-				if(INNO_CHINA_CONSTANTS.UPLOAD_URL){
+				if(config.UPLOAD_URL){
         			return new Promise((resolve) => {
 	        			oss.getUploadParams(file, (data) => {
         					this.params = underscore.deepExtend(this.params, data);
@@ -392,7 +439,7 @@
 	}
 </script>
 <style lang="less" scoped>
-@import url("../asset/style/var.less");
+@import url("../../asset/style/var.less");
 .upload-wrap{
 	padding: .75rem;
 	background: white;

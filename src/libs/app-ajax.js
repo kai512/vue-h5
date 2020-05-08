@@ -77,7 +77,7 @@ var _postJson = function(params) {
 		ajaxParams.params = ajaxParams.data
 	}
 
-	const baseUrl = process.env.NODE_ENV === 'development' ? config.serviceBaseUrl.dev : config.serviceBaseUrl.pro
+	const baseUrl = config.serviceBaseUrl.base
 
 	// rest请求路径
 	ajaxParams['url'] = baseUrl + params.service

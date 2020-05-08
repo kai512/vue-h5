@@ -27,7 +27,8 @@
 	import oss from "_libs/oss-utils";
 	import draggable from "_libs/vue-draggable";
 	import underscore from "underscore-extend"
-	import axios from 'axios'
+    import axios from 'axios'
+    import config from "@/config"
 	export default {
 		props: {
 			files : {
@@ -77,7 +78,7 @@
 			},
 			uploadUrl: {
 				type: String,
-				default: INNO_CHINA_CONSTANTS.UPLOAD_URL || "/rest/tongplatform/common/third-party-extranet/v1/attachment/upload-files"
+				default: config.UPLOAD_URL || `${config.serviceBaseUrl.base}/tongplatform/common/third-party-extranet/v1/attachment/upload-files`
 			},
 			size: {
 				type: String,
@@ -85,7 +86,7 @@
 			},
 			name: {
 				type: String,
-				default: INNO_CHINA_CONSTANTS.UPLOAD_URL ? 'file' : "files"
+				default: config.UPLOAD_URL ? 'file' : "files"
 			},
 			params: {
 				type: Object,
@@ -227,10 +228,10 @@
 						var ret = (response.data && response.data.content && response.data.content.length > 0) ? response.data.content[0] : {};
 						
 						// oss上传特殊处理
-						if(INNO_CHINA_CONSTANTS.UPLOAD_URL){
+						if(config.UPLOAD_URL){
 							
 							ret = {
-								filePath : oss.buildResizeUrl(INNO_CHINA_CONSTANTS.UPLOAD_URL + "/" + this.temParams[file.name], null, null, 70),
+								filePath : oss.buildResizeUrl(config.UPLOAD_URL + "/" + this.temParams[file.name], null, null, 70),
 								fileName : file.name,
 								fileId : this.temParams[file.name]
 							}
@@ -268,7 +269,7 @@
         		
         		this.$emit("before-upload", file, this.otherData);
         		
-				if(INNO_CHINA_CONSTANTS.UPLOAD_URL){
+				if(config.UPLOAD_URL){
         			return new Promise((resolve) => {
 	        			oss.getUploadParams(file, (data) => {
         					this.params = underscore.deepExtend(this.params, data);
