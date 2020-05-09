@@ -343,7 +343,7 @@
 	}
 </script>
 <style lang="less" scoped>
-@import url("../asset/style/var.less");
+@import url("../../assets/style/var.less");
 .upload-wrap{
 	padding: .75rem;
 	background: white;
