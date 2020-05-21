@@ -38,6 +38,17 @@ export default [
 		component: () =>
 			import('@/view/demo/test.vue')
 		
+    },
+    {
+		path: '/demo/charts',
+		name : "charts",
+		meta: {
+			title: 'charts',
+			loginCheck : []
+		},
+		component: () =>
+			import('@/view/demo/charts.vue')
+		
 	},
 	{
 		path: '/wechat/wechatauth',

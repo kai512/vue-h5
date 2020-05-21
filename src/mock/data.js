@@ -1,7 +1,9 @@
 import Mock from 'mockjs'
 import { doCustomTimes } from '@/libs/util'
+import chartsData from './data/charts-data'
 import orgData from './data/org-data'
 import { treeData } from './data/tree-select'
+import { getResult } from "./utils"
 const Random = Mock.Random
 
 export const getTableData = req => {
@@ -37,4 +39,9 @@ export const getOrgData = req => {
 
 export const getTreeSelectData = req => {
   return treeData
+}
+
+export const getChartsData = req => {
+
+    return chartsData;
 }
