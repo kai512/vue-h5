@@ -81,6 +81,8 @@
 		/*overflow-x: hidden;*/
 		/*transform: scale(.5);
        transform-origin: center 0; */
+       height: 100vh;
+       overflow-x: hidden;
 	}
 	/*.appView {
 	  position: absolute;
