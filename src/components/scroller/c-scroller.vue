@@ -54,7 +54,7 @@
 					callback && callback(data);
 				},
 				error : function(message){
-					that.$vux.toast.text(message);
+					that.$notify(message);
 					failCallback && failCallback();
 				}
 			})
