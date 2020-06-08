@@ -110,7 +110,7 @@
        		pullupConfig : {
        			default(){
        				return {
-       					content: '上拉加载更多',
+       					content: '',
 						pullUpHeight: 60,
 						height: 48,
 						autoRefresh: false,
