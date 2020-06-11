@@ -550,7 +550,12 @@ export const initNativeBack = () => {
 	
 	if(sysType == "H5"){
 		return;
-	}
+    }
+    
+    // 禁用iOS webview的左滑
+    if(sysType == "IOS"){
+        innoPlus.native.allowsBackForwardNavigationGestures && innoPlus.native.allowsBackForwardNavigationGestures("false")
+    }
 	
 	sysType == "ANDROID" && android.useJsBack("true");
 	mui.nativeBack = function() {

@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<v-touch :swipe-options="{direction: 'horizontal', threshold: 50}">
+		<v-touch v-on:swiperight="onSwipeRight" :swipe-options="{direction: 'horizontal', threshold: 50}">
 			<!--threshold 设置左右滑动的距离-->
 			<transition :name="transitionName">
 				<keep-alive :include="cacheList">
@@ -33,19 +33,18 @@
 		},
 		watch: {
 			$route(to, from) {
-				
+
 				// 在城市通APP
 				if(window.navigator.userAgent.indexOf('innoApp') > -1) {
 					let isBack = window.mui.isBack //  监听路由变化时的状态为前进还是后退
 					if(isBack) {
 						this.transitionName = 'slide-right'
 					} else {
-						this.transitionName = 'slide-left'
+						this.transitionName = (typeof innoPlus != 'undefined') ? (innoPlus.native.allowsBackForwardNavigationGestures ? 'slide-left' : '') : 'slide-left'
 					}
 					window.mui.isBack = false
 				}
 				
-				// TODO
 				this.setNavList()
 			}
 		},
@@ -70,7 +69,14 @@
 		methods: {
 			...mapMutations([
 				'setNavList'
-			])
+            ]),
+            
+            /**
+             * 右滑手势
+             */
+            onSwipeRight(){
+                mui.nativeBack && mui.nativeBack();
+            }
 		}
 	}
 </script>
