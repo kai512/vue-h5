@@ -26,8 +26,10 @@ const router = new Router({
 const turnTo = (to, from, next) => {
 	
 	canTurnTo(to, from).then(() => {
-		
-		next();
+        
+        // 这边可以返回一个Promise，处理业务的权限过滤，如闽政通用户授权
+        next();
+        
 	}).catch(() => {
 		next({
 			replace: true,
