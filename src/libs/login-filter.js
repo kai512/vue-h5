@@ -1,4 +1,4 @@
-import { setToken, getCstoonUA, addUrlParam} from '@/libs/util'
+import { getToken, setToken, getCstoonUA, addUrlParam} from '@/libs/util'
 import { isWechat } from '@/libs/tools'
 import cst from "@/libs/cstoon-jssdk.js"
 import config from '@/config'
@@ -70,7 +70,14 @@ export const canTurnTo = (to, from) => {
 			})
 			resolve();
 		}else if(needLogin.indexOf("nlogin") > -1){ // 普通浏览器
-			
+            
+            // 无token直接抛异常
+            if(!getToken()){
+                reject();
+                return;
+            }
+
+            // 验证token可用性
 			getUserInfo().then(() => {
 				resolve();
 			}).catch(() => {
