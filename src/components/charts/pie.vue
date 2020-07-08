@@ -36,13 +36,22 @@
              */
             setOption(params){
 
-                if(this.lineDom){
+                if(this.dom){
                     this.defaultOptions = underscore.deepExtend(this.defaultOptions, params);
 
-				    this.lineDom.setOption(this.defaultOptions)
+				    this.dom.setOption(this.defaultOptions)
                 }
             }
-		},
+        },
+        watch : {
+            options(newData){
+                this.setOption(newData);
+            },
+
+            value(newData){
+                this.setOption({series : [{data : newData}]});
+            }
+        },
 		mounted() {
 			this.$nextTick(() => {
 				// let legend = this.value.map(_ => _.name)

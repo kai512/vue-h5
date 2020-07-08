@@ -21,7 +21,7 @@
 		},
 		data() {
 			return {
-                dom: null,
+                lineDom: null,
                 defaultOptions : {}
 			}
 		},
@@ -41,7 +41,12 @@
 				    this.lineDom.setOption(this.defaultOptions)
                 }
             }
-		},
+        },
+        watch : {
+            options(newData){
+                this.setOption(newData);
+            }
+        },
 		mounted() {
 			this.$nextTick(() => {
 				this.defaultOptions = {

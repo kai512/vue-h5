@@ -4,20 +4,22 @@
         <div class="main-content economy">
             <div class="flex-v" style="height: 100vh;">
                 <div class="f1" style="overflow-y: auto;">
-                    <div class="info-list" v-if="totalValue">
-                        <template v-for="(item, index) in totalValue.gdpForm">
-                            <div class="cell b-border" :key="index+'a'">
-                                <div class="tit">{{item.label}}</div>
-                                <div class="dl">
-                                    <div class="val">{{item.value}}</div>
-                                    <div class="count">
-                                        <div class="dd">增长率<b :class="item.growthRateColor == 1? 'red':'blue'">{{item.growthRate}}</b></div>
-                                        <div class="dd">目标增长<b class="blue">{{item.goalGrowthRate}}</b></div>
+                    <div v-if="totalValue">
+                        <div class="info-list">
+                            <template v-for="(item, index) in totalValue.gdpForm">
+                                <div class="cell b-border" :key="index+'a'">
+                                    <div class="tit">{{item.label}}</div>
+                                    <div class="dl">
+                                        <div class="val">{{item.value}}</div>
+                                        <div class="count">
+                                            <div class="dd">增长率<b :class="item.growthRateColor == 1? 'red':'blue'">{{item.growthRate}}</b></div>
+                                            <div class="dd">目标增长<b class="blue">{{item.goalGrowthRate}}</b></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </template>
+                            </template>
 
+                        </div>
                     </div>
                     <h2 class="g-tit b-border mt-m">三大产业机构比重</h2>
                     <div class="chart-card">

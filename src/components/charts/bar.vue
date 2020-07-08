@@ -35,13 +35,18 @@
              */
             setOption(params){
 
-                if(this.lineDom){
+                if(this.dom){
                     this.defaultOptions = underscore.deepExtend(this.defaultOptions, params);
 
-				    this.lineDom.setOption(this.defaultOptions)
+				    this.dom.setOption(this.defaultOptions)
                 }
             }
-		},
+        },
+        watch : {
+            options(newData){
+                this.setOption(newData);
+            }
+        },
 		mounted() {
 			this.$nextTick(() => {
 				this.defaultOptions = {
