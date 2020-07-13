@@ -38,26 +38,22 @@
 				service : this.serviceUrl,
 				data : this.sendData,
 				otherParams : this.otherParams,
-				type : this.type || "get",
-				success : function(data){
-					
-					if(!data || data.length < that.sendData.pageSize){
+				type : this.type || "get"
+			}).then(data => {
+                if(!data || data.length < that.sendData.pageSize){
 						
-						that.sendData.type == "UP" ? that.isNoMore = true : that.isNoMore = false;
-						that.$refs.scrollerBottom.disablePullup();
-					}else{
-						
-						that.isNoMore = false;
-						that.$refs.scrollerBottom.enablePullup();
-						
-					}
-					callback && callback(data);
-				},
-				error : function(message){
-					that.$notify(message);
-					failCallback && failCallback();
-				}
-			})
+                    that.sendData.type == "UP" ? that.isNoMore = true : that.isNoMore = false;
+                    that.$refs.scrollerBottom.disablePullup();
+                }else{
+                    
+                    that.isNoMore = false;
+                    that.$refs.scrollerBottom.enablePullup();
+                    
+                }
+                callback && callback(data);
+            }).catch(() => {
+				failCallback && failCallback();
+            })
 		}
 	};
     export default {

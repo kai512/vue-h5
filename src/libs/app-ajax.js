@@ -58,15 +58,14 @@ var _postJson = function(params) {
 		service: '', // 服务的配置名称
 		data: {}, // 发送的data
 		params: {},
-		success: function(d) {}, // 成功后回调
-		error: null, // 失败后回调
+		showErrorMsg: true, // 失败后吐司
 		autoShowWait: false, // 自动显示菊花
 		loadingText: '正在加载', // 加载的提示语
 		autoCloseWait: false, // 自动关闭菊花
 		headers: {
 			'base-params': JSON.stringify(authClient),
 			'token': unescape(getToken() || '')
-			// "token" : "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpblRpbWUiOjE1Njc3NTQ5Nzg5ODIsInBob25lIjoiMTUwNjA2OTA1MjIiLCJpZGVudGl0eVR5cGUiOm51bGwsImFwcElkIjoiZjg0NzEwMzM5ZDdkNGM5ZWJjNTYyMWVhM2I1OGE0ZmEiLCJvc3R5cGUiOiJhbmRyb2lkIiwidXNlclR5cGUiOjEsInVzZXJJZCI6IjIxNWE4OTQ3ZmVjZTQzNDI4YTc3NGZmNGRiZjBiYmJiIiwiZGV2aWNlSWQiOiIwMDAwMDAwMC03ZGVkLTM4MmQtZmZmZi1mZmZmZjg5ZGY4YjYiLCJhY2NvdW50VXNlcklkIjoiMjE1YTg5NDdmZWNlNDM0MjhhNzc0ZmY0ZGJmMGJiYmIiLCJsb2dpblRlcm1pbmFsIjoxfQ.IxWzLW-nsSd7CZzFQof4oqlJfraBujizCBFdJUSl0wuSO8VNCuMUliBx_5LPYCC2KrHt0Dl6oyCNitdqxRmzs4ojFTuaniV4x-zIVjXwgocRJAX6VBbnCh9M_XFWx2TdGyt0phCaf8vV0ZfNmYboqszQoxPmYraB_JMHj_hfp-uOks9MRnEZ_Qn7RFMEvdPJZZ8cOX44QMpN6_bO5rlA43z0GDl27R4NoC-zKbi6Jjd6MBhovLwGbdPHX1VAQgATYs3xLKEzjBvrg2vdvabkrefIELJ6abMvgu1WTPtnQH3GIr38UurIjRs7QfZcHsmYcpsHy55Xa6ZuPaS3ytLSXg"
+			//"token" : "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpblRpbWUiOjE1OTAxMTQ3ODY2NjAsImV4cGlyZVRpbWUiOjE1OTg3NTQ3ODY2NjAsIm1haWwiOiJjaGVueGlhb3dlaUBsaW5ld2VsbC5jb20iLCJwaG9uZSI6IjE4OTY1NjU2MDg3IiwiaWRlbnRpdHlUeXBlIjpudWxsLCJhcHBJZCI6IjFjN2U3NWMyMzUzMDQyZjE5YzEyMWIyN2MzZDY4MDNkIiwib3N0eXBlIjoiSDUiLCJ1c2VyVHlwZSI6MSwidXNlcklkIjoiNUMwOTg2QzZCOEU2MTZCRTRBRUJDRjg0MkJCMzg2MzIiLCJkZXZpY2VJZCI6Ikg1IiwiYWNjb3VudFVzZXJJZCI6IjVDMDk4NkM2QjhFNjE2QkU0QUVCQ0Y4NDJCQjM4NjMyIiwibG9naW5UZXJtaW5hbCI6bnVsbH0.Iq49UGLD9iO9W8iiP2KsVhp5qyR5YFD2rNHfq_ILZdW2Q9OZYPnWDnrZlUYKAQhXtjapsYjINaX137EMPii_qqIZK6a9sRdZ_SqDGMGlNVEbrtTZQ1IsD0UFIzekygqf2bSlD6gtEYs1vGQm-M7Dc2BBT9sHfNH7fs1jcqSm51R2ze2Y33PjSRkvIZ2HiDG7JWTPvB3aD5q8qb14DuAdIwOJhpPdC0V1uk8kALQFLVNjCsDu5vM6EyFqH6cN_UZW3V5MMHhCnZVubNtaD9_72NfboRCFvzS4qQPqZq1SdOQfl9zHccTW5MmXfiklxJB3lyBZnkE1uxV3ukIoBwXPIw"
 		},
 		isAsync: true
 	}
@@ -89,46 +88,40 @@ var _postJson = function(params) {
 
 	// 成功回调方法重载
 	ajaxParams.success = function(d) {
-		ajaxParams['autoShowWait'] && new Lw().$toast.loading({
-			message: '加载中...',
-			forbidClick: true,
-			loadingType: 'spinner',
-			duration : 1
-		});
-		var data = typeof d.data === 'string' ? JSON.parse(d.data) : d.data
-		try {
-			if(data) {
-				switch(data.status) {
-					case 1: // 成功
-						if(data.content) {
-							if(params.success) {
-								params.success.call(this, data.content, data)
-							}
-						} else {
-							if(params.success) {
-								params.success.call(this, null, data)
-							}
-						}
-						break
-					case 2: // 回话过期或者未登录
 
-						break
-					default: // 失败或者其他
+        ajaxParams['autoShowWait'] && new Lw().$toast.loading({
+            message: '加载中...',
+            forbidClick: true,
+            loadingType: 'spinner',
+            duration : 1
+        });
+        var data = typeof d.data === 'string' ? JSON.parse(d.data) : d.data
+        try {
+            if(data) {
+                switch(data.status) {
+                    case 1: // 成功
+                        return Promise.resolve(data.content || null, data);
+                        break
+                    case 2: // 回话过期或者未登录
 
-						var message = data.message ? data.message : '有点忙开个小差，稍后再试~'
-						if(params.error) {
-							params.error.call(this, message, data)
-						} else {
-							new Lw().$notify(data.message)
-						}
-						break
-				}
-			}
-		} catch(e) {
-			// handle the exception
-			//			ajaxParams["autoShowWait"] && new Lw().$vux.loading.hide();
-			console.log(e)
-		}
+                        break
+                    default: // 失败或者其他
+
+                        var message = data.message ? data.message : '有点忙开个小差，稍后再试~'
+                        if(!ajaxParams.showErrorMsg) {
+                            new Lw().$notify(message)
+                        }
+                            
+                        return Promise.reject(message, data)
+                }
+            }
+        } catch(e) {
+            // handle the exception
+            //			ajaxParams["autoShowWait"] && new Lw().$vux.loading.hide();
+            console.log(e)
+        }
+
+		
 	}
 
 	// 是否显示菊花
@@ -139,25 +132,24 @@ var _postJson = function(params) {
 		duration : 0
 	});
 
-	var errorFn = ajaxParams.error
-	ajaxParams.error = function(d) {
+	ajaxParams.error = function(message) {
 		ajaxParams['autoShowWait'] && new Lw().$toast.loading({
 			message: '加载中...',
 			forbidClick: true,
 			loadingType: 'spinner',
 			duration : 1
 		});
-		var data = d.data
-		if(errorFn) {
-			errorFn(data.message, data)
-		} else if(data) {
-			new Lw().$notify(data.message)
-		}
+        
+        if(!ajaxParams.showErrorMsg) {
+            new Lw().$notify(message)
+        }
+            
+        return Promise.reject(message)        
 	}
 
 	try {
 		// 交互方法
-		axiosUtils.postJson(ajaxParams)
+		return axiosUtils.postJson(ajaxParams)
 	} catch(e) {
 		// 去除加载状态
 		ajaxParams['autoShowWait'] && new Lw().$toast.loading({
@@ -175,7 +167,7 @@ var exportsMethods = {
 	 * @param {Object} params 配置定义的key
 	 */
 	postJson: function(params) {
-		_postJson(params)
+		return _postJson(params)
 	},
 
 	/**

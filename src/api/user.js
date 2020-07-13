@@ -8,24 +8,17 @@ export const login = ({ userName, password }) => {
  */
 export const getUserInfo = () => {
 	
-	return new Promise(() => {
-		appAjax.postJson({
-			service : "/tongplatform/base/user-sso/v1/user/isLoginWithoutSdToken",
-			type : "get",
-			success(result){
-				if(result) {
-					resolve(result);
-					return;
-				}
-				reject();
-			},
-			error(){
-				reject()
-			}
-			
-		})
-		
-	})
+	return appAjax.postJson({
+        service : "/tongplatform/base/user-sso/v1/user/isLoginWithoutSdToken",
+        type : "get",
+        showErrorMsg : false, 
+    }).then(result => {
+        if(result) {
+            return Promise.resolve(result);
+        }
+        return Promise.reject();
+
+    })
 }
 
 /**
@@ -33,21 +26,16 @@ export const getUserInfo = () => {
  */
 export const wechatAuthCheck = () => {
 	
-	return new Promise((resolve, reject) => {
-		appAjax.postJson({
-			service : "/tongplatform/base/user-sso/v1/user-third-info/third-auth-check",
-			type : "get",
-			success(result){
-				if(result) {
-					resolve(result);
-					return;
-				}
-				reject();
-			},
-			error(){
-				reject()
-			}
-		})
-	})
+	return appAjax.postJson({
+        service : "/tongplatform/base/user-sso/v1/user-third-info/third-auth-check",
+        type : "get",
+        showErrorMsg : false, 
+    }).then(result => {
+        if(result) {
+            return Promise.resolve(result);
+        }
+        return Promise.reject();
+
+    })
 }
 
