@@ -108,7 +108,7 @@ var _postJson = function(params) {
                     default: // 失败或者其他
 
                         var message = data.message ? data.message : '有点忙开个小差，稍后再试~'
-                        if(!ajaxParams.showErrorMsg) {
+                        if(ajaxParams.showErrorMsg) {
                             new Lw().$notify(message)
                         }
                             
@@ -140,7 +140,7 @@ var _postJson = function(params) {
 			duration : 1
 		});
         
-        if(!ajaxParams.showErrorMsg) {
+        if(ajaxParams.showErrorMsg) {
             new Lw().$notify(message)
         }
             
