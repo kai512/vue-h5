@@ -218,7 +218,7 @@ export const objEqual = (obj1, obj2) => {
  * 复制
  */
 export const copyText = (text) => {
-	const keysArr1 = Object.keys(obj1)
+
 	// 数字没有 .length 不能执行selectText 需要转化成字符串
 	const textString = text.toString();
 	let input = document.querySelector('#copyInput');
