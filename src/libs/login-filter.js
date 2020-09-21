@@ -68,7 +68,6 @@ export const canTurnTo = (to, from) => {
 				redirectWechatAuthorize(to.fullPath, wechatAuthType[to.path.split("\/")[1]]);
 				
 			})
-			resolve();
 		}else if(needLogin.indexOf("nlogin") > -1){ // 普通浏览器
             
             // 无token直接抛异常
