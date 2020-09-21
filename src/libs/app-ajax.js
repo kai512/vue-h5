@@ -56,7 +56,7 @@ var _postJson = function(params) {
 	// 默认参数
 	var defaultParams = {
 		service: '', // 服务的配置名称
-		data: {}, // 发送的data
+		data: null, // 发送的data
 		params: {},
 		showErrorMsg: true, // 失败后吐司
 		autoShowWait: false, // 自动显示菊花

@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<v-touch v-on:swiperight="onSwipeRight" :swipe-options="{direction: 'horizontal', threshold: 50}">
+		<v-touch v-on:swiperight="onSwipeRight" :swipe-options="{direction: 'horizontal', threshold: 50}" class="full-wrapper">
 			<!--threshold 设置左右滑动的距离-->
 			<transition :name="transitionName">
 				<keep-alive :include="cacheList">
@@ -130,4 +130,12 @@
     .slide-right-leave-active {
         z-index: 2;
     }*/
+
+    .full-wrapper{
+        min-height: 100vh;
+        &>div{
+            height: 100vh;
+            overflow-y: auto;
+        }
+    }
 </style>
