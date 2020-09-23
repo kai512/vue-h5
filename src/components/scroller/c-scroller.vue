@@ -12,9 +12,7 @@
 	    	<!--默认空界面-->
 	    	<div v-else-if="list && list.length <= 0">
 	    		<slot name="empty">
-					<div class="empty-box common">
-						<span>{{emptyTips}}</span>
-					</div>
+					<empty :msg='emptyTips'></empty>
 	    		</slot>
 	    	</div>
 	    	<divider v-if="isNoMore" :style="{ padding: '0 50px' }">我是有底线的</divider>
@@ -25,7 +23,8 @@
 	import appAjax from '@/libs/app-ajax'
 	import { Divider } from 'vant';
 	import Scroller from './Scroller.vue'
-	import underscore from "underscore-extend";
+    import underscore from "underscore-extend";
+    import empty from "@/components/empty/empty"
 	var privateMethods = {
 		
 		/**
@@ -57,6 +56,7 @@
 		}
 	};
     export default {
+        
         data () {
             return {
             	sendData : {
@@ -139,7 +139,8 @@
        	},
         components: {
 	    	Scroller,
-	    	Divider
+            Divider,
+            empty
 	  	},
         mounted(){
         	this.sendData = underscore.deepExtend(this.sendData, this.postData);
