@@ -183,7 +183,7 @@
                 }
                 this.count++;
 				
-				this.loadingStyle == "wholeLoading" && this.$vux.loading.show({text : "正在上传"});
+				this.loadingStyle == "wholeLoading" && this.$toast.loading({message : "正在上传", forbidClick: true, duration : 0});
                 const before = this.beforeUpload(file);
                 if (before && before.then) {
                     before.then(processedFile => {
@@ -221,8 +221,8 @@
                 // 上传
             	axios.post(this.uploadUrl, formData, this.otherParams)
 					.then((response) => {
-						if(this.$vux && this.$vux.loading && this.loadingStyle == "wholeLoading") {
-							this.$vux.loading.hide()
+						if(this.$toast && this.$toast.loading && this.loadingStyle == "wholeLoading") {
+							this.$toast.loading.clear()
 						}
 						this.$refs.input.value = '';
 						var ret = (response.data && response.data.content && response.data.content.length > 0) ? response.data.content[0] : {};
@@ -249,8 +249,8 @@
 						this.$emit("handle-success", ret);
 					}).catch(function (error) {
 						
-						if(this.$vux && this.$vux.loading && this.loadingStyle == "wholeLoading") {
-							this.$vux.loading.hide()
+						if(this.$toast && this.$toast.loading && this.loadingStyle == "wholeLoading") {
+							this.$toast.loading.clear()
 						}
 					    this.count--;
 					    this.$emit("handle-error", error);
@@ -293,7 +293,7 @@
         			? (parseFloat(this.maxSize / 1024).toFixed(2) + "M")
         			: (this.maxSize + "KB");
         		
-        		this.$vux.toast.text("请选择小于"+fileSize+"的文件");        		
+        		this.$toast("请选择小于"+fileSize+"的文件");        		
         		
         		this.$emit("on-exceeded-size", file, this.otherData);
         	},
@@ -303,7 +303,7 @@
         	 */
         	handleFormatError(file){
         		
-        		this.$vux.toast.text("请上传正确的文件格式");
+        		this.$toast("请上传正确的文件格式");
         		
         		this.$emit("on-format-error", file, this.otherData);
         	},
