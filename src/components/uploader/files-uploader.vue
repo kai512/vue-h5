@@ -78,7 +78,7 @@
 			},
 			uploadUrl: {
 				type: String,
-				default: config.UPLOAD_URL || `${config.serviceBaseUrl.base}/tongplatform/common/third-party-extranet/v1/attachment/upload-files`
+				default: config.UPLOAD_URL || `${config.serviceBaseUrl.base}/zuul/tongplatform/common/third-party-extranet/v1/attachment/upload-files`
 			},
 			size: {
 				type: String,
