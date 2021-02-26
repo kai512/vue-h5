@@ -222,7 +222,7 @@
             	axios.post(this.uploadUrl, formData, this.otherParams)
 					.then((response) => {
 						if(this.$toast && this.$toast.loading && this.loadingStyle == "wholeLoading") {
-							this.$toast.loading.clear()
+							this.$toast.loading({message : "正在上传", forbidClick: true, duration : 1});
 						}
 						this.$refs.input.value = '';
 						var ret = (response.data && response.data.content && response.data.content.length > 0) ? response.data.content[0] : {};
@@ -250,7 +250,7 @@
 					}).catch(function (error) {
 						
 						if(this.$toast && this.$toast.loading && this.loadingStyle == "wholeLoading") {
-							this.$toast.loading.clear()
+							this.$toast.loading({message : "正在上传", forbidClick: true, duration : 1});
 						}
 					    this.count--;
 					    this.$emit("handle-error", error);
