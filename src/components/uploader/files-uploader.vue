@@ -6,9 +6,9 @@
 				<ul class="weui-uploader__files">
 					<draggable :options="sortOptions" @end="sortEnd" element="div" class="js-sort-box" v-model="fileslist">
 					<li class="weui-uploader__file sortable" v-for="(item, index) in fileslist" :index="index" :key="index">
-						<i class="del-btn" @click="remove(index)"></i>
-						<span>{{item.fileName}}</span>
 						
+						<span>{{item.fileName}}</span>
+						<i class="del-btn" @click="remove(index)"></i>
 					</li>
 					</draggable>
 				</ul>
@@ -512,15 +512,15 @@
 		font-size: 0.75rem;
 		display: block;
 		position: relative;
-		padding-left: 1.9375rem;
+		padding-right: 1.9375rem;
 	}
 	.weui-uploader__files{
 		overflow: hidden;
 	}
 	.del-btn{
 		position: absolute;
-		left: .2rem;
-		top:.3rem;
+		right: .2rem;
+		top:.2rem;
 		display: inline-block;
 		vertical-align: top;
 		width: 1.5rem;
