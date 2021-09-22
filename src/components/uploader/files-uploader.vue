@@ -247,7 +247,7 @@
 						
 						this.count = this.fileslist.length;
 						this.$emit("handle-success", ret);
-					}).catch(function (error) {
+					}).catch( (error) => {
 						
 						if(this.$toast && this.$toast.loading && this.loadingStyle == "wholeLoading") {
 							this.$toast.loading({message : "正在上传", forbidClick: true, duration : 1});
